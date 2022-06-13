@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,8 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
-import org.apache.catalina.tribes.tipis.AbstractReplicatedMap.MapEntry;
 
 import com.taiwan.service.coupon.CouponService;
 import com.taiwan.utils.ControllerUtil;

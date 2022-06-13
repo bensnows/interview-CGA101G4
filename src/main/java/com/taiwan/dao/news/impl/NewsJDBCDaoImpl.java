@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.taiwan.beans.News;
 import com.taiwan.dao.news.NewsDao;
-import com.taiwan.utils.DbUtil;
+import com.taiwan.utils.config.DbUtil;
 
 public class NewsJDBCDaoImpl implements NewsDao {
 

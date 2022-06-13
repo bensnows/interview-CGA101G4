@@ -8,10 +8,11 @@ import java.sql.SQLException;
 
 import com.taiwan.beans.Roomtype;
 import com.taiwan.dao.roomtype.Roomtype_interface;
+import com.taiwan.utils.config.DbUtil;
 
 public class RoomtypeDAO implements Roomtype_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
+	String url = DbUtil.getUrl();
 	String userid = "root";
 	String passwd = "rootitri";
 	private String update="UPDATE Taiwan.ROOMTYPE SET total_people = total_people+1,total_score= ?  WHERE roomtype_id = ?";

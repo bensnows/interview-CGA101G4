@@ -12,19 +12,10 @@ import javax.sql.*;
 
 import com.taiwan.beans.RoomItemVO;
 import com.taiwan.dao.roomItem.RoomItemDAO_interface;
+import com.taiwan.utils.JndiUtil;
 
 public class RoomItemJNDIDAO implements RoomItemDAO_interface {
 	//未修改版
-	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
-	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-	}
 
 	private static final String insert = "INSERT INTO Taiwan.ROOM_ITEM ( room_id, room_order_id, room_amount, room_price) VALUES ( ?, ?, ?, ?)";
 	private static final String update = "update Taiwan.ROOM_ITEM set evaluate_score = ? , evaluate_msg=? where room_item_id = ? ";
@@ -47,7 +38,7 @@ public class RoomItemJNDIDAO implements RoomItemDAO_interface {
 
 		try {
 
-			con = ds.getConnection();
+			con = JndiUtil.getConnection();
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, roomOrderId);
 			rs = pstmt.executeQuery();
@@ -66,7 +57,7 @@ public class RoomItemJNDIDAO implements RoomItemDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -108,7 +99,7 @@ public class RoomItemJNDIDAO implements RoomItemDAO_interface {
 
 		try {
 
-			con = ds.getConnection();
+			con = JndiUtil.getConnection();
 			pstmt = con.prepareStatement(insert);
 
 			pstmt.setInt(1, roomItemVO.getRoomId());
@@ -119,7 +110,7 @@ public class RoomItemJNDIDAO implements RoomItemDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -148,7 +139,7 @@ public class RoomItemJNDIDAO implements RoomItemDAO_interface {
 
 		try {
 
-			con = ds.getConnection();
+			con =JndiUtil.getConnection();
 			pstmt = con.prepareStatement(update);
 
 			pstmt.setInt(1, roomItemVO.getRoomItemEvaluateScore());
@@ -158,7 +149,7 @@ public class RoomItemJNDIDAO implements RoomItemDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -187,7 +178,7 @@ public class RoomItemJNDIDAO implements RoomItemDAO_interface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			con = ds.getConnection();
+			con = JndiUtil.getConnection();
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, roomOrderId);
 			rs = pstmt.executeQuery();
@@ -201,7 +192,7 @@ public class RoomItemJNDIDAO implements RoomItemDAO_interface {
 				roomItemVO.setRoomItemPrice(rs.getInt("room_price"));
 			}
 			// Handle any driver errors
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {

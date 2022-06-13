@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.taiwan</groupId>
 	<artifactId>CGA101G4</artifactId>
@@ -6,7 +8,7 @@
 	<packaging>war</packaging>
 
 	<dependencies>
-		<!-- SpringIOC 配置開始-->
+		<!-- SpringIOC 配置開始 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
@@ -39,7 +41,7 @@
 			<artifactId>spring-aop</artifactId>
 			<version>5.3.16</version>
 		</dependency>
-		<!-- SpringIOC 配置結束-->
+		<!-- SpringIOC 配置結束 -->
 
 
 		<!-- Spring AOP 配置 -->
@@ -49,8 +51,8 @@
 			<artifactId>spring-aspects</artifactId>
 			<version>5.3.16</version>
 		</dependency>
-		<!--使用AspectJ方式註解需要相應的包,版本需要一致-->
-		<!--注意 aspectjrt 不要加上 <scope>runtime</scope> 否則會報錯-->
+		<!--使用AspectJ方式註解需要相應的包,版本需要一致 -->
+		<!--注意 aspectjrt 不要加上 <scope>runtime</scope> 否則會報錯 -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
@@ -84,7 +86,7 @@
 		<!-- Spring數據庫配置 -->
 
 
-		<!-- springMVC 配置-->
+		<!-- springMVC 配置 -->
 		<!-- web就是整合原生的web, 使用監聽器啟動容器需要的配置 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -97,7 +99,7 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>5.3.18</version>
 		</dependency>
-		<!-- SpringMVC 配置-->
+		<!-- SpringMVC 配置 -->
 
 
 		<!-- 數據校驗配置 -->
@@ -119,7 +121,7 @@
 		<!-- 數據校驗配置 -->
 
 
-		<!-- SpringMVC 支持 Ajax-->
+		<!-- SpringMVC 支持 Ajax -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
@@ -135,10 +137,10 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.13.2.2</version>
 		</dependency>
-		<!-- SpringMVC 支持 Ajax-->
+		<!-- SpringMVC 支持 Ajax -->
 
 
-		<!--文件上傳-->
+		<!--文件上傳 -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -149,7 +151,7 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.4</version>
 		</dependency>
-		<!--文件上傳-->
+		<!--文件上傳 -->
 
 
 		<!-- MyBatis相關的配置 開始 -->
@@ -188,7 +190,7 @@
 		<!-- MyBatis相關的配置 結束 -->
 
 
-		<!--MyBtis 第三方緩存配置-->
+		<!--MyBtis 第三方緩存配置 -->
 		<!-- Mybatis EHCache整合包 -->
 		<dependency>
 			<groupId>org.mybatis.caches</groupId>
@@ -201,7 +203,7 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.2.3</version>
 		</dependency>
-		<!--MyBtis 第三方緩存配置-->
+		<!--MyBtis 第三方緩存配置 -->
 
 
 		<!-- 其他配置 -->
@@ -269,16 +271,180 @@
 
 		<!-- Qr code -->
 		<dependency>
-		    <groupId>com.google.zxing</groupId>
-		    <artifactId>core</artifactId>
-		    <version>3.3.3</version>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.3.3</version>
 		</dependency>
 		<dependency>
-		    <groupId>com.google.zxing</groupId>
-		    <artifactId>javase</artifactId>
-		    <version>3.3.0</version>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.3.0</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+		<!-- Dependency for java ee -->
+		<dependency>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-web-api</artifactId>
+			<version>${jakartaee-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.activation/activation -->
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.4.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
+	<properties>
+		<!-- Explicitly declaring the source encoding eliminates the following 
+			message: -->
+		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+			resources, i.e. build is platform dependent! -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- Define the version of the JBoss BOMs we want to import to specify 
+			tested stacks. -->
+		<version.jboss.bom>26.1.1.Final</version.jboss.bom>
+		<wildfly.version>26.1.0.Final</wildfly.version>
+
+
+		<!-- other plugin versions -->
+		<version.compiler.plugin>3.9.0</version.compiler.plugin>
+		<version.ear.plugin>3.2.0</version.ear.plugin>
+		<version.ejb.plugin>3.1.0</version.ejb.plugin>
+		<version.surefire.plugin>2.22.2</version.surefire.plugin>
+		<version.failsafe.plugin>2.22.2</version.failsafe.plugin>
+		<version.war.plugin>3.3.2</version.war.plugin>
+		<version.exec.plugin>1.6.0</version.exec.plugin>
+
+		<!-- maven-compiler-plugin -->
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+
+		<jakartaee-api.version>8.0.0</jakartaee-api.version>
+
+		<!-- JBoss dependency versions -->
+		<version.wildfly.maven.plugin>7.0.2.Final</version.wildfly.maven.plugin>
+		<version.wildfly.datasources.galleon-pack>2.2.1.Final</version.wildfly.datasources.galleon-pack>
+		<version.wildfly.galleon-pack>26.1.1.Final</version.wildfly.galleon-pack>
+		<jkube.generator.from>registry.redhat.io/ubi8/openjdk-8:latest</jkube.generator.from>
+	</properties>
+	<!--tag::dm[] -->
+	<dependencyManagement>
+		<dependencies>
+			<!-- JBoss distributes a complete set of Jakarta EE 8 APIs including a 
+				Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or a 
+				collection) of artifacts. We use this here so that we always get the correct 
+				versions of artifacts. Here we use the wildfly-jakartaee-8.0-with-tools stack 
+				(you can read this as the WildFly stack of the Jakarta EE 8 APIs, with some 
+				extras tools for your project, such as Arquillian for testing) -->
+			<dependency>
+				<groupId>org.wildfly.bom</groupId>
+				<artifactId>wildfly-jakartaee8-with-tools</artifactId>
+				<version>${version.jboss.bom}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<!--end::dm[] -->
+	<build>
+		<finalName>CGA101G4</finalName>
+		<plugins>
+			<!-- The WildFly plugin deploys your war to a local JBoss AS container -->
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-jar-maven-plugin</artifactId>
+				<version>${version.wildfly.maven.plugin}</version>
+				<configuration>
+					<feature-packs>
+						<feature-pack>
+							<location>wildfly@maven(org.jboss.universe:community-universe)#${wildfly.version}</location>
+						</feature-pack>
+						<feature-pack>
+							<groupId>org.wildfly</groupId>
+							<artifactId>wildfly-datasources-galleon-pack</artifactId>
+							<version>${version.wildfly.datasources.galleon-pack}</version>
+						</feature-pack>
+					</feature-packs>
+					<layers>
+						<!-- https://github.com/wildfly-extras/wildfly-datasources-galleon-pack/blob/main/testsuite/bootablejar/pom.xml -->
+						<layer>datasources</layer>
+						<layer>mysql-datasource</layer>
+						<layer>jpa</layer>
+						<layer>web-server</layer>
+					</layers>
+					<!-- <excluded-layers> <layer>deployment-scanner</layer> </excluded-layers> -->
+
+					<contextRoot>false</contextRoot>
+
+					<!-- https://docs.wildfly.org/bootablejar/#wildfly_jar_enabling_debug -->
+					<jvmArguments>
+						<arg>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</arg>
+					</jvmArguments>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>package</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>openshift</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.wildfly.plugins</groupId>
+						<artifactId>wildfly-jar-maven-plugin</artifactId>
+						<configuration>
+							<cloud />
+						</configuration>
+					</plugin>
+					<!-- https://www.wildfly.org/news/2021/02/01/Bootable-jar-jkube-clustering-openshift/ -->
+					<plugin>
+						<groupId>org.eclipse.jkube</groupId>
+						<artifactId>openshift-maven-plugin</artifactId>
+						<version>1.8.0</version>
+						<configuration>
+							<resources>
+								<env>
+									<GC_MAX_METASPACE_SIZE>256</GC_MAX_METASPACE_SIZE>
+									<GC_METASPACE_SIZE>96</GC_METASPACE_SIZE>
+								</env>
+							</resources>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>resource</goal>
+									<goal>build</goal>
+									<goal>apply</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

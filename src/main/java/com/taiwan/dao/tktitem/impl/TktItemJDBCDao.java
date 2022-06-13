@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.taiwan.beans.TktItem;
 import com.taiwan.dao.tktitem.TktItemDao;
-import com.taiwan.utils.DbUtil;
+import com.taiwan.utils.config.DbUtil;
 
 public class TktItemJDBCDao implements TktItemDao {
 

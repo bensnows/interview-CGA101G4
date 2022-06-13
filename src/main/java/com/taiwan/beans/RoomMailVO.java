@@ -7,6 +7,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.taiwan.utils.JndiUtil;
+
 public class RoomMailVO {
 	private Integer roomMailId;
 	private Integer custId;
@@ -64,20 +66,13 @@ public class RoomMailVO {
 	}
 
 	public String getCmpNameById() {
-		DataSource ds = null;
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
 
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String cmpName = null;
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement("SELECT cmp_name FROM COMPANY WHERE cmp_id=?;");
 			ps.setInt(1, cmpId);
 			System.out.println("我進來JNDI囉!只是還沒到if裡面");
@@ -86,7 +81,7 @@ public class RoomMailVO {
 				cmpName = rs.getString("cmp_name");
 				System.out.println("我在JNDI層if裡:" + cmpName);
 			}
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {

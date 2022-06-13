@@ -9,10 +9,11 @@ import java.sql.Timestamp;
 
 import com.taiwan.dao.reservation12.Reservation12_interface;
 import com.taiwan.service.roomtype.impl.RoomtypeService12;
+import com.taiwan.utils.config.DbUtil;
 
 public class Reservation12JDBCDAO implements Reservation12_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
+	String url = DbUtil.getUrl();
 	String userid = "root";
 	String passwd = "rootitri";
 	// SELECT * FROM Taiwan.RESERVATION where roomtype_id=1 and reserve_date between

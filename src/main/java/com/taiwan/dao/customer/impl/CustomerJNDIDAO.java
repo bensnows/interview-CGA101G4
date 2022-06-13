@@ -13,18 +13,9 @@ import javax.sql.DataSource;
 
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.dao.customer.CustomerDAO_interface;
+import com.taiwan.utils.JndiUtil;
 
 public class CustomerJNDIDAO implements CustomerDAO_interface {
-	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = (Context) new InitialContext();
-			ds = (DataSource) ((InitialContext) ctx).lookup("java:comp/env/jdbc/TestDB2");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 	private static final String SET_ALL = "INSERT INTO CUSTOMER(NAME,SEX,TEL,EMAIL,ADDRESS,ID_CARD,BIRTH,ACCOUNT,PASSWORD,CUST_USE,CUST_RIGHT) "
 			+ "VALUES(?,?,?,?,?,?,?,?,?,?,?);";
 	private static final String SET_UPDATE = "UPDATE CUSTOMER "
@@ -44,7 +35,7 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(SET_ALL);
 			ps.setString(1, customer.getName());
 			ps.setString(2, customer.getSex());
@@ -59,7 +50,7 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 			ps.setString(11, customer.getCustRight());
 			int count = ps.executeUpdate();
 			System.out.println(count + "success");
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (ps != null) {
@@ -86,7 +77,7 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(SET_UPDATE);
 			ps.setString(1, customer.getName());
 			ps.setString(2, customer.getSex());
@@ -102,7 +93,7 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 			ps.setInt(12, customer.getCustId());
 			int count = ps.executeUpdate();
 			System.out.println(count + "success");
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (ps != null) {
@@ -130,7 +121,7 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 		ResultSet rs = null;
 		CustomerVO customerVO = null;
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(GET_ALL);
 			ps.setInt(1, custId);
 			rs = ps.executeQuery();
@@ -152,7 +143,7 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 				customerVO.setCard(rs.getString("card"));
 				customerVO.setCustRight(rs.getString("cust_Right"));
 			}
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
@@ -188,14 +179,14 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 		ResultSet rs = null;
 		String password = null;
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(GET_PASSWORD);
 			ps.setString(1, account);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				password = rs.getString(1);
 			}
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
@@ -231,14 +222,14 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 		ResultSet rs = null;
 		String email = null;
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(GET_EMAIL);
 			ps.setString(1, account);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				email = rs.getString(1);
 			}
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
@@ -272,13 +263,13 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(SET_CUST_RIGHT);
 			ps.setString(1, custRight);
 			ps.setInt(2, custId);
 			int count = ps.executeUpdate();
 			System.out.println(count + "success");
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (ps != null) {
@@ -307,7 +298,7 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 		ResultSet rs = null;
 		CustomerVO customerVO = null;
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(GET_LOGIN);
 			ps.setString(1, account);
 			ps.setString(2, password);
@@ -330,7 +321,7 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 				customerVO.setSex(rs.getString("SEX"));
 				customerVO.setTel(rs.getString("TEL"));
 			}
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
@@ -366,7 +357,7 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 		List<CustomerVO> list = new ArrayList<CustomerVO>();
 
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(GET_ALL_NOMATTERWHO);
 			rs = ps.executeQuery();
 			CustomerVO customerVO = null;
@@ -389,7 +380,7 @@ public class CustomerJNDIDAO implements CustomerDAO_interface {
 				list.add(customerVO);
 			}
 			System.out.println(list);
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {

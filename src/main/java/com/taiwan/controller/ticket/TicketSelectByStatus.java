@@ -13,12 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.taiwan.beans.CouponVO;
 import com.taiwan.beans.TicketVO;
 import com.taiwan.service.TicketService;
-import com.taiwan.test.ticket.ticketTest;
 import com.taiwan.utils.ControllerUtil;
 
 @WebServlet("/ticket/selectByStatus")

@@ -9,10 +9,11 @@ import java.sql.Timestamp;
 
 import com.taiwan.beans.CustCoupon;
 import com.taiwan.dao.custcoupon12.Custcoupon12;
+import com.taiwan.utils.config.DbUtil;
 
 public class CustcouponDao12 implements Custcoupon12 {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
+	String url = DbUtil.getUrl();
 	String userid = "root";
 	String passwd = "rootitri";
 	private static final String find = "SELECT * FROM Taiwan.CUST_COUPON where CUST_COP_ID=? ";

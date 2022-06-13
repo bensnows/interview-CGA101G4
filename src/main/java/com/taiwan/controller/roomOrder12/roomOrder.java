@@ -17,8 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.taiwan.beans.Roomtype;
 import com.taiwan.service.impl.ReservationServiceImpl12;
 import com.taiwan.service.impl.RoomOrderServiceImpl;
-import com.taiwan.service.roomtype.impl.*;
-import com.taiwan.test.news.newsTest;
+import com.taiwan.service.roomtype.impl.RoomtypeService12;
 
 /**
  * Servlet implementation class roomOrder

@@ -8,12 +8,10 @@ import java.sql.SQLException;
 
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.dao.customer.CustomerDAO_interface;
-import static java.sql.Types.*;
-import java.util.Date;
-import javax.sql.DataSource;
+import com.taiwan.utils.config.DbUtil;
 public class CustomerJDBCDAO implements CustomerDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
+	String url = DbUtil.getUrl();
 	String userid = "root";
 	String passwd = "rootitri";
 

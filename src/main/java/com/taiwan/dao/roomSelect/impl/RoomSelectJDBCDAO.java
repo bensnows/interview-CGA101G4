@@ -9,21 +9,17 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-import com.taiwan.beans.Roomtype;
 import com.taiwan.beans.Company;
-import com.taiwan.beans.EmployeeVO;
 import com.taiwan.beans.Reservation;
 import com.taiwan.beans.RoomSelectVO;
-import com.taiwan.beans.TicketVO;
+import com.taiwan.beans.Roomtype;
 import com.taiwan.dao.roomSelect.RoomSelect_interface;
-import com.taiwan.dao.ticket.impl.TicketJDBCDAO;
-import com.taiwan.utils.jdbcUtil_CompositeQuery_Ticket;
+import com.taiwan.utils.config.DbUtil;
 
 public class RoomSelectJDBCDAO implements RoomSelect_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
+	String url = DbUtil.getUrl();
 	String userid = "root";
 	String passwd = "rootitri";
 

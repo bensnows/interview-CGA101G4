@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.taiwan.beans.TicketVO;
-import com.taiwan.dao.employee.EmployeeDAO_interface;
 import com.taiwan.dao.ticket.TicketSearch_interface;
 import com.taiwan.utils.jdbcUtil_CompositeQuery_Ticket;
+import com.taiwan.utils.config.DbUtil;
 
 public class TicketSearchJDBC  implements TicketSearch_interface{
 
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
+	String url = DbUtil.getUrl();
 	String userid = "root";
 	String passwd = "rootitri";
 	private static final String GET_ALL = 

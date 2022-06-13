@@ -10,9 +10,6 @@ import com.taiwan.dao.roomOrder.RoomOrderDAO_interface;
 import com.taiwan.dao.roomOrder.impl.RoomOrderDAO;
 import com.taiwan.service.RoomOrderService;
 import com.taiwan.service.coupon.CouponService;
-import com.taiwan.service.coupon.impl.CouponServiceImpl;
-import com.taiwan.service.roomItem.impl.RoomItemServiceImpl;
-import com.taiwan.test.news.newsTest;
 import com.taiwan.utils.ControllerUtil;
 
 public class RoomOrderServiceImpl implements RoomOrderService{

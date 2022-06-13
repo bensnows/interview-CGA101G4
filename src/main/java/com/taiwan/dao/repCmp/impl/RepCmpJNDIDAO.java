@@ -16,18 +16,9 @@ import javax.sql.DataSource;
 
 import com.taiwan.beans.RepCmpVO;
 import com.taiwan.dao.repCmp.RepCmpDao_interface;
+import com.taiwan.utils.JndiUtil;
 
 public class RepCmpJNDIDAO implements RepCmpDao_interface {
-	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-
-	}
 	private static final String GET_PEP_CMP_BY_CUST_ID = "SELECT REP_CMP_ID ,CUST_ID ,ROOM_ID ,EMP_ID ,REASON,"
 			+ "REP_CMP_DATE ,STATUS,RESULT " + "FROM REP_CMP WHERE CUST_ID =? ORDER BY REP_CMP_DATE DESC;";
 	private static final String SET_REP_CMP = "INSERT INTO REP_CMP (CUST_ID,ROOM_ID,REASON) " + "VALUES(?,?,?);";
@@ -46,7 +37,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 		ResultSet rs = null;
 		List<RepCmpVO> list = new ArrayList<RepCmpVO>();
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(GET_PEP_CMP_BY_CUST_ID);
 			ps.setInt(1, custId);
 			System.out.println("我進來JNDI囉!只是還沒到while裡面");
@@ -64,7 +55,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 				list.add(repCmpVO);
 				System.out.println("我在JNDI層while迴圈裡:" + repCmpVO);
 			}
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
@@ -99,7 +90,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 		PreparedStatement ps = null;
 
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(SET_REP_CMP);
 			ps.setInt(1, repCmp.getCustId());
 			ps.setInt(2, repCmp.getRoomId());
@@ -107,7 +98,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 
 			int count = ps.executeUpdate();
 			System.out.println(count + "success");
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (ps != null) {
@@ -133,13 +124,13 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 		PreparedStatement ps = null;
 
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(DELETE_REP_CMP);
 			ps.setInt(1, repCmpId);
 
 			int count = ps.executeUpdate();
 			System.out.println(count + "success");
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (ps != null) {
@@ -165,7 +156,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 		PreparedStatement ps = null;
 
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(SET_REP_CMP_RESULT);
 			ps.setInt(1, empId);
 			ps.setString(2, status);
@@ -174,7 +165,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 
 			int count = ps.executeUpdate();
 			System.out.println(count + "success");
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (ps != null) {
@@ -204,7 +195,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 
 		try {
 
-			con = ds.getConnection();
+			con = JndiUtil.getConnection();
 			pstmt = con.prepareStatement(findFrom + "rep_cmp_id = ? ");
 
 			pstmt.setInt(1, repCmpId);
@@ -224,7 +215,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 			}
 
 			// Handle any driver errors
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -265,7 +256,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 
 		try {
 
-			con = ds.getConnection();
+			con = JndiUtil.getConnection();
 			pstmt = con.prepareStatement(findFrom + "room_id = ? ");
 			pstmt.setInt(1, roomId);
 
@@ -286,7 +277,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 			}
 
 			// Handle any driver errors
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -326,7 +317,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 
 		try {
 
-			con = ds.getConnection();
+			con = JndiUtil.getConnection();
 			pstmt = con.prepareStatement(findFrom + "emp_id = ? ");
 			pstmt.setInt(1, empId);
 
@@ -347,7 +338,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 			}
 
 			// Handle any driver errors
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -387,7 +378,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 
 		try {
 
-			con = ds.getConnection();
+			con = JndiUtil.getConnection();
 			pstmt = con.prepareStatement(findFrom + "rep_cmp_date between ? and ? ");
 			pstmt.setTimestamp(1, startDate);
 			pstmt.setTimestamp(2, endDate);
@@ -409,7 +400,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 			}
 
 			// Handle any driver errors
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -449,7 +440,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 
 		try {
 
-			con = ds.getConnection();
+			con = JndiUtil.getConnection();
 			pstmt = con.prepareStatement(findFrom + "status = ? ");
 			pstmt.setString(1, status);
 
@@ -471,7 +462,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 			}
 
 			// Handle any driver errors
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -510,7 +501,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 
 		try {
 
-			con = ds.getConnection();
+			con = JndiUtil.getConnection();
 			pstmt = con.prepareStatement(find);
 
 			rs = pstmt.executeQuery();
@@ -531,7 +522,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 
 			return list;
 			// Handle any driver errors
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -566,7 +557,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 
 		try {
 
-			con = ds.getConnection();
+			con = JndiUtil.getConnection();
 			pstmt = con.prepareStatement(update);
 
 			pstmt.setInt(1, repCmpVO.getEmpId());
@@ -577,7 +568,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -606,7 +597,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 
 		try {
 
-			con = ds.getConnection();
+			con = JndiUtil.getConnection();
 			pstmt = con.prepareStatement(insert);
 
 			pstmt.setInt(1, repCmpVO.getCustId());
@@ -616,7 +607,7 @@ public class RepCmpJNDIDAO implements RepCmpDao_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {

@@ -15,10 +15,11 @@ import com.taiwan.beans.RoomOrderVO;
 import com.taiwan.dao.custcoupon12.impl.CustcouponDao12;
 import com.taiwan.dao.roomItem.impl.RoomItemDAO;
 import com.taiwan.dao.roomOrder.RoomOrderDAO_interface;
+import com.taiwan.utils.config.DbUtil;
 
 public class RoomOrderDAO implements RoomOrderDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
+	String url = DbUtil.getUrl();
 	String userid = "root";
 	String passwd = "rootitri";
 	

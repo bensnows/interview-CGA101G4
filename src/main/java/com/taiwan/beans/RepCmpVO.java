@@ -11,6 +11,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.taiwan.utils.JndiUtil;
+
 public class RepCmpVO {
 	private Integer repCmpId;
 	private Integer custId;
@@ -111,20 +113,12 @@ public class RepCmpVO {
 	}
 
 	public String getRoomtypeName() {
-		DataSource ds = null;
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String roomtypeName = null;
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement("SELECT roomtype_name FROM ROOMTYPE WHERE roomtype_id=?;");
 			ps.setInt(1, roomId);
 			System.out.println("我進來JNDI囉!只是還沒到if裡面");
@@ -133,7 +127,7 @@ public class RepCmpVO {
 				roomtypeName = rs.getString("roomtype_name");
 				System.out.println("我在JNDI層if裡:" + roomtypeName);
 			}
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
@@ -163,20 +157,13 @@ public class RepCmpVO {
 	}
 
 	public String getCmpName() {
-		DataSource ds = null;
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
 
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String cmpName = null;
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement("select cmp_name\r\n" + "from COMPANY\r\n" + "WHERE CMP_ID=(SELECT cmp_id\r\n"
 					+ "FROM ROOMTYPE\r\n" + "WHERE roomtype_id=?);");
 			ps.setInt(1, roomId);
@@ -186,7 +173,7 @@ public class RepCmpVO {
 				cmpName = rs.getString("cmp_name");
 				System.out.println("我在JNDI層if裡:" + cmpName);
 			}
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {

@@ -11,7 +11,7 @@ import java.util.List;
 import com.taiwan.beans.CustCoupon;
 import com.taiwan.beans.TktOrder;
 import com.taiwan.dao.custcoupon.CustCoupon_interface;
-import com.taiwan.utils.DbUtil;
+import com.taiwan.utils.config.DbUtil;
 
 
 public class CustCouponJDBCDao implements CustCoupon_interface{

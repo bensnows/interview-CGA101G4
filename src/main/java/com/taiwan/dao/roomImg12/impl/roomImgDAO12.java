@@ -10,10 +10,11 @@ import java.util.List;
 
 import com.taiwan.beans.RoomImg;
 import com.taiwan.dao.roomImg12.roomImg_interface12;
+import com.taiwan.utils.config.DbUtil;
 
 public class roomImgDAO12 implements roomImg_interface12 {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
+	String url = DbUtil.getUrl();
 	String userid = "root";
 	String passwd = "rootitri";
 	private static final String query = "SELECT * FROM Taiwan.ROOM_IMG WHERE ROOMTYPE_ID=?";

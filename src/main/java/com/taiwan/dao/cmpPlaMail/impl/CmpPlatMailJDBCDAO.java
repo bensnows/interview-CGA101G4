@@ -10,18 +10,16 @@ import java.util.List;
 
 import com.taiwan.beans.CmpPlatMailVO;
 import com.taiwan.dao.cmpPlaMail.CmpPlatMailDAO_interface;
-
+import com.taiwan.utils.config.DbUtil;
 
 public class CmpPlatMailJDBCDAO implements CmpPlatMailDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
+	String url = DbUtil.getUrl();
 	String userid = "root";
 	String passwd = "rootitri";
 
-	private static final String insert = 
-			"INSERT INTO Taiwan.CMP_PLAT_MAIL (CMP_ID, EMP_ID, CMP_PLAT_MAIL_MSG, CMP_PLAT_MAIL_WHO) VALUES (?, ?, ?, ?) ";
-	private static final String find=
-			"SELECT * FROM Taiwan.CMP_PLAT_MAIL where CMP_ID=? and EMP_ID=? order by CMP_PLAT_MAIL_SEND_TIME";
+	private static final String insert = "INSERT INTO Taiwan.CMP_PLAT_MAIL (CMP_ID, EMP_ID, CMP_PLAT_MAIL_MSG, CMP_PLAT_MAIL_WHO) VALUES (?, ?, ?, ?) ";
+	private static final String find = "SELECT * FROM Taiwan.CMP_PLAT_MAIL where CMP_ID=? and EMP_ID=? order by CMP_PLAT_MAIL_SEND_TIME";
 
 	@Override
 	public List<CmpPlatMailVO> queryCmpPlatMailByEmpIdAndCmpId(Integer empId, Integer cmpId) {
@@ -52,12 +50,10 @@ public class CmpPlatMailJDBCDAO implements CmpPlatMailDAO_interface {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -84,6 +80,7 @@ public class CmpPlatMailJDBCDAO implements CmpPlatMailDAO_interface {
 		}
 		return list;
 	}
+
 	@Override
 	public void insert(CmpPlatMailVO cmpPlatMailVO) {
 		Connection con = null;
@@ -99,18 +96,15 @@ public class CmpPlatMailJDBCDAO implements CmpPlatMailDAO_interface {
 			pstmt.setInt(2, cmpPlatMailVO.getEmpId());
 			pstmt.setString(3, cmpPlatMailVO.getCmpPlatMailMsg());
 			pstmt.setString(4, cmpPlatMailVO.getCmpPlatMailWho());
-	
 
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -127,8 +121,7 @@ public class CmpPlatMailJDBCDAO implements CmpPlatMailDAO_interface {
 					e.printStackTrace(System.err);
 				}
 			}
-		}		
+		}
 	}
-
 
 }

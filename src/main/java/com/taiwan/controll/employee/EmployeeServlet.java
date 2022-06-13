@@ -99,8 +99,8 @@ public class EmployeeServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			String param = "?empId=" + employeeVO.getEmpId() + "&empName=" + employeeVO.getEmpName() + "&empPassword="
-					+ employeeVO.getEmpPassword() + "&funcId=" + employeeVO.getFuncID()+ "&empStatus=" + employeeVO.getEmpStatus() + "&hiredate="
-					+ employeeVO.getHiredate();
+					+ employeeVO.getEmpPassword() + "&funcId=" + employeeVO.getFuncID() + "&empStatus="
+					+ employeeVO.getEmpStatus() + "&hiredate=" + employeeVO.getHiredate();
 			String url = "/back-end/emp/update_emp_input.jsp" + param;
 
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
@@ -121,7 +121,7 @@ public class EmployeeServlet extends HttpServlet {
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 
 			req.setAttribute("errorMsgs", errorMsgs);
-System.out.println("進入UPDATE 126");
+			System.out.println("進入UPDATE 126");
 //			try {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer empId = Integer.valueOf(req.getParameter("empId").trim());
@@ -165,9 +165,10 @@ System.out.println("進入UPDATE 126");
 			System.out.println(165);
 			/*************************** 2.開始修改資料 *****************************************/
 			EmployeeService empSvc = new EmployeeService();
-			System.out.println(empId + "," + empName + "," + empPassword + ","+ funcId+"," + empStatus + "," + hiredate);
+			System.out.println(
+					empId + "," + empName + "," + empPassword + "," + funcId + "," + empStatus + "," + hiredate);
 
-			EmployeeVO employeeVO = empSvc.updateEmp(empId, empName, empPassword, funcId,empStatus, hiredate);
+			EmployeeVO employeeVO = empSvc.updateEmp(empId, empName, empPassword, funcId, empStatus, hiredate);
 			System.out.println(172);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("employeeVO", employeeVO); // 資料庫update成功後,正確的的empVO物件,存入req
@@ -217,7 +218,7 @@ System.out.println("進入UPDATE 126");
 			/*************************** 2.開始新增資料 ***************************************/
 
 			EmployeeService empSvc = new EmployeeService();
-			empSvc.addEmp(empName, empPassword,funcId);
+			empSvc.addEmp(empName, empPassword, funcId);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			System.out.println(empPassword);
@@ -284,7 +285,7 @@ System.out.println("進入UPDATE 126");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
-			
+
 			String empPassword = req.getParameter("empPassword");
 			String empPasswordReg = "^[((a-zA-Z0-9)]{6,12}$";
 			if (empPassword == null || empPassword.trim().length() == 0) {
@@ -292,14 +293,7 @@ System.out.println("進入UPDATE 126");
 			} else if (!empPassword.trim().matches(empPasswordReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.put("empPassword", "員工密碼: 只能是英文字母和數字 , 且長度必需在6到12之間");
 			}
-			
-			
-			
-			
-			
-			
-			
-			
+
 			EmployeeService employeeService = new EmployeeService();
 			EmployeeVO employeeVO = employeeService.login(empId, empPassword);
 //			System.out.println(employeeVO);

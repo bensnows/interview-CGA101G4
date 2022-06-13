@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.taiwan.beans.Theme;
 import com.taiwan.dao.theme.ThemeDao;
-import com.taiwan.utils.DbUtil;
+import com.taiwan.utils.config.DbUtil;
 
 public class ThemeJDBCDaoImpl implements ThemeDao {
 

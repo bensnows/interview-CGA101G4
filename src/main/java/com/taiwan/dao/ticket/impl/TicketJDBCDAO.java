@@ -11,9 +11,10 @@ import java.util.List;
 
 import com.taiwan.beans.TicketVO;
 import com.taiwan.dao.ticket.TicketDAO_interface;
+import com.taiwan.utils.config.DbUtil;
 public class TicketJDBCDAO implements TicketDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
+	String url = DbUtil.getUrl();
 	String userid = "root";
 	String passwd = "rootitri";
 

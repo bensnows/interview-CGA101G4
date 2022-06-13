@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import com.taiwan.beans.CustomerVO;
 import com.taiwan.service.customer.CustomerService;
 import com.taiwan.service.customer.impl.CustomerServiceImpl;
-import com.taiwan.test.news.newsTest;
 import com.taiwan.utils.MailQrCode11;
 
 @WebServlet("/cust/CustomerLogin")

@@ -14,20 +14,12 @@ import javax.sql.DataSource;
 
 import com.taiwan.beans.CustPlatMailVO;
 import com.taiwan.dao.custPlatMail.CustPlatMailDao_interface;
+import com.taiwan.utils.JndiUtil;
 
 import static java.sql.Types.*;
 
 public class CustPlatMailJNDIDAO implements CustPlatMailDao_interface {
-	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
 
-	}
 	private static final String GET_CUST_PLAT_MAIL = "SELECT CUST_PLAT_ID ,CUST_ID ,EMP_ID ,MSG,CUST_PLAT_TIME ,WHO"
 			+ " FROM CUST_PLAT_MAIL LIMIT ? OFFSET ? ;";
 	private static final String SET_CUST_PLAT_MAIL = "INSERT INTO CUST_PLAT_MAIL(CUST_ID,EMP_ID,MSG,WHO) VALUES(?,?,?,?);";
@@ -42,7 +34,7 @@ public class CustPlatMailJNDIDAO implements CustPlatMailDao_interface {
 		ResultSet rs = null;
 		List<CustPlatMailVO> list = new ArrayList<CustPlatMailVO>();
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(GET_CUST_PLAT_MAIL);
 			ps.setInt(1, rowNum);
 			ps.setInt(2, offset);
@@ -57,7 +49,7 @@ public class CustPlatMailJNDIDAO implements CustPlatMailDao_interface {
 				custPlatMailVO.setWho(rs.getInt(6));
 				list.add(custPlatMailVO);
 			}
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
@@ -92,7 +84,7 @@ public class CustPlatMailJNDIDAO implements CustPlatMailDao_interface {
 		PreparedStatement ps = null;
 
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(SET_CUST_PLAT_MAIL);
 			ps.setInt(1, mail.getCustId());
 			if (mail.getEmpId() == null) {
@@ -104,7 +96,7 @@ public class CustPlatMailJNDIDAO implements CustPlatMailDao_interface {
 			ps.setInt(4, mail.getWho());
 			int count = ps.executeUpdate();
 			System.out.println(count + "success");
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (ps != null) {
@@ -131,7 +123,7 @@ public class CustPlatMailJNDIDAO implements CustPlatMailDao_interface {
 		ResultSet rs = null;
 		List<CustPlatMailVO> list = new ArrayList<CustPlatMailVO>();
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -144,7 +136,7 @@ public class CustPlatMailJNDIDAO implements CustPlatMailDao_interface {
 				custPlatMailVO.setWho(rs.getInt(6));
 				list.add(custPlatMailVO);
 			}
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
@@ -180,7 +172,7 @@ public class CustPlatMailJNDIDAO implements CustPlatMailDao_interface {
 		ResultSet rs = null;
 		List<CustPlatMailVO> list = new ArrayList<CustPlatMailVO>();
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(GET_ALL_BY_CUSTID);
 			ps.setInt(1, custId);
 			rs = ps.executeQuery();
@@ -194,7 +186,7 @@ public class CustPlatMailJNDIDAO implements CustPlatMailDao_interface {
 				custPlatMailVO.setWho(rs.getInt(6));
 				list.add(custPlatMailVO);
 			}
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
@@ -228,14 +220,14 @@ public class CustPlatMailJNDIDAO implements CustPlatMailDao_interface {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(UPDATE_EMP_ID);
 			ps.setInt(1, empId);
 			ps.setInt(2, custPlatId);
 
 			int count = ps.executeUpdate();
 			System.out.println(count + "success");
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (ps != null) {

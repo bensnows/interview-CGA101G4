@@ -13,14 +13,14 @@ import java.util.Set;
 import com.taiwan.beans.CouponVO;
 import com.taiwan.beans.CustCoupon;
 import com.taiwan.dao.coupon.CouponDAO_interface;
-import java.sql.Timestamp;
+import com.taiwan.utils.config.DbUtil;
 
 
 
 
 public class CouponJDBCDAO implements CouponDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
+	String url = DbUtil.getUrl();
 	String userid = "root";
 	String passwd = "rootitri";
 

@@ -13,10 +13,11 @@ import java.util.Set;
 import com.taiwan.beans.AuthorityVO;
 import com.taiwan.beans.EmployeeVO;
 import com.taiwan.dao.authority.AuthorityDAO_interface;
+import com.taiwan.utils.config.DbUtil;
 
 public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224/Taiwan?serverTimezone=Asia/Taipei";
+	String url = DbUtil.getUrl();
 	String userid = "root";
 	String passwd = "rootitri";
 

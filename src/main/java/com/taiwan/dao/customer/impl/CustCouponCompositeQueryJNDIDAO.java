@@ -9,25 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
 import com.taiwan.beans.CustCoupon;
 import com.taiwan.dao.customer.CustCouponCompositeQueryDAO_interface;
+import com.taiwan.utils.JndiUtil;
 
 public class CustCouponCompositeQueryJNDIDAO implements CustCouponCompositeQueryDAO_interface {
-	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = (Context) new InitialContext();
-			ds = (DataSource) ((InitialContext) ctx).lookup("java:comp/env/jdbc/TestDB2");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
 	@Override
 	public List<CustCoupon> getAll(Map<String, String[]> map) {
 		Connection conn = null;
@@ -35,7 +21,7 @@ public class CustCouponCompositeQueryJNDIDAO implements CustCouponCompositeQuery
 		ResultSet rs = null;
 		List<CustCoupon> list = new ArrayList<CustCoupon>();
 		try {
-			conn = ds.getConnection();
+			conn = JndiUtil.getConnection();
 			ps = conn.prepareStatement(
 					"SELECT * FROM CUST_COUPON " + get_whereCondition(map) + " ORDER BY GETDATE DESC;");
 
@@ -53,7 +39,7 @@ public class CustCouponCompositeQueryJNDIDAO implements CustCouponCompositeQuery
 				custCoupon.setStatus(rs.getString("STATUS"));
 				list.add(custCoupon);
 			}
-		} catch (SQLException se) {
+		} catch (Exception se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
@@ -105,11 +91,11 @@ public class CustCouponCompositeQueryJNDIDAO implements CustCouponCompositeQuery
 		String aCondition = null;
 		if ("GETDATE".equals(key) || "USEDATE".equals(key) || "STATUS".equals(key)) {
 			aCondition = key + "=" + "'" + value + "'";
-		} else if("DISCOUNT".equals(key)){
-			aCondition=key+" "+value;
-		}else if("COP_ID".equals(key)){
-			aCondition=key+" IN "+"(SELECT COP_ID FROM COUPON WHERE COP_NAME LIKE '%"+value+"%')";
-		}else {
+		} else if ("DISCOUNT".equals(key)) {
+			aCondition = key + " " + value;
+		} else if ("COP_ID".equals(key)) {
+			aCondition = key + " IN " + "(SELECT COP_ID FROM COUPON WHERE COP_NAME LIKE '%" + value + "%')";
+		} else {
 			aCondition = key + "=" + value;
 		}
 		return aCondition + " ";

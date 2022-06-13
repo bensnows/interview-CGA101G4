@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.taiwan.beans.CustCoupon;
 import com.taiwan.beans.CustomerVO;
-import com.taiwan.dao.customer.impl.CustomerJNDIDAO;
 import com.taiwan.service.custCoupon.impl.CustCouponServiceImpl14;
 import com.taiwan.service.customer.impl.CustomerServiceImpl;
-import com.taiwan.test.news.newsTest;
 
 @WebServlet("/custManage/CustInfoManage")
 public class CustInfoManage extends HttpServlet {

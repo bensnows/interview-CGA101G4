@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.taiwan.beans.CustomerVO;
-import com.taiwan.service.customer.impl.CustomerServiceImpl;
-import com.taiwan.test.news.newsTest;
 
 @WebServlet("/cust/UpdateCustomerInformation")
 public class UpdateCustomerInformation extends HttpServlet {

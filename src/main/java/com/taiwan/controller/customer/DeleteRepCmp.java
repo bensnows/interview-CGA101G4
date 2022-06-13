@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.taiwan.beans.RepCmpVO;
 import com.taiwan.service.repCmp.impl.RepCmpServiceImpl;
-import com.taiwan.test.news.newsTest;
 
 @WebServlet("/cust/DeleteRepCmp")
 public class DeleteRepCmp extends HttpServlet {

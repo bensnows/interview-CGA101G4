@@ -12,7 +12,7 @@ import com.taiwan.beans.TktItem;
 import com.taiwan.beans.TktOrder;
 import com.taiwan.dao.tktitem.impl.TktItemJDBCDao;
 import com.taiwan.dao.tktorder.TktOrderDao;
-import com.taiwan.utils.DbUtil;
+import com.taiwan.utils.config.DbUtil;
 
 
 public class TktOrderJDBCDao implements TktOrderDao {

@@ -10,12 +10,12 @@ import java.util.List;
 
 import com.taiwan.beans.CouponVO;
 import com.taiwan.beans.CustCoupon;
-import com.taiwan.dao.coupon.impl.CouponJDBCDAO;
 import com.taiwan.dao.getCoupon.GetCoupon_interface;
+import com.taiwan.utils.config.DbUtil;
 
 public class GetCouponJDBCDAO implements GetCoupon_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
+	String url = DbUtil.getUrl();
 	String userid = "root";
 	String passwd = "rootitri";
 	

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.taiwan.service.impl.RepCustServiceImpl;
-import com.taiwan.test.news.newsTest;
 
 /**
  * Servlet implementation class cancelRepCust

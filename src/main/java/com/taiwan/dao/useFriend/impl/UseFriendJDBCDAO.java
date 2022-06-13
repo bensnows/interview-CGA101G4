@@ -10,11 +10,11 @@ import java.util.List;
 
 import com.taiwan.beans.UseFriendVO;
 import com.taiwan.dao.useFriend.UseFriendDao_interface;
-
+import com.taiwan.utils.config.DbUtil;
 
 public class UseFriendJDBCDAO implements UseFriendDao_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://104.199.153.224:3306/Taiwan?serverTimezone=Asia/Taipei";
+	String url = DbUtil.getUrl();
 	String userid = "root";
 	String passwd = "rootitri";
 

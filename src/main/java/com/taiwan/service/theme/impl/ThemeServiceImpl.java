@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.taiwan.beans.Theme;
 import com.taiwan.service.theme.ThemeService;
-import com.taiwan.test.news.newsTest;
 
 import mybatis.mapper.ThemeMapper;
 
